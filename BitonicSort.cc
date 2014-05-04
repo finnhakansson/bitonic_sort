@@ -13,7 +13,7 @@ using namespace std;
 template<class ITEM> class BitonicSort {
 private:
     int num;
-    ITEM* array;
+    ITEM** array;
     void cmp_swap(int a, int b);
 public:
     BitonicSort(const int n);
@@ -25,15 +25,15 @@ public:
 
 template<class ITEM> void BitonicSort<ITEM>::output_array() const {
     for (int i = 0; i < num; i++) {
-        printf("%d%s", array[i].getNumber(), (i < (num - 1)) ? " " : "");
+        printf("%d%s", array[i]->getNumber(), (i < (num - 1)) ? " " : "");
     }
     printf("\n");
 }
 
 
 template<class ITEM> void BitonicSort<ITEM>::cmp_swap(int a, int b) {
-    if (array[a] > array[b]) {
-        ITEM tmp = array[a];
+    if (*array[a] > *array[b]) {
+        ITEM* tmp = array[a];
         array[a] = array[b];
         array[b] = tmp;
     }
@@ -62,14 +62,17 @@ template<class ITEM> void BitonicSort<ITEM>::sort() {
 
 template<class ITEM> BitonicSort<ITEM>::BitonicSort(int n) {
     num = n;
-    array = new ITEM[num];
+    array = new ITEM*[num];
     for (int i = 0; i < num; i++) {
-        //array[i] = new ITEM();
+        array[i] = new ITEM();
     }
 }
 
 
 template<class ITEM> BitonicSort<ITEM>::~BitonicSort() {
+    for (int i = 0; i < num; i++) {
+        delete array[i];
+    }
     delete [] array;
 }
 
