@@ -21,6 +21,7 @@ Bmp::Bmp(int width, int height) {
     cout << "height: " << this->height << endl;
     cout << "pad: " << pad << endl;
     cout << "size: " << size << endl;
+    createHeader();
 }
 
 
@@ -59,26 +60,29 @@ unsigned char* Bmp::getData(unsigned char* buf) {
 
 void Bmp::createHeader() {
     memset(data, 0, BMP_HEADER_SIZE);
-  
-    data[0] = 0x42;
-    data[1] = 0x4d;
-    data[2] = (unsigned char)((size << 24) >> 24);
-    data[3] = (unsigned char)((size << 16) >> 24);
-    data[4] = (unsigned char)((size << 8) >> 24);
-    data[5] = (unsigned char)((size << 0) >> 24);
+    cout << "Bmp::createHeader: size = " << size << endl;
+    cout << "Bmp::createHeader: width = " << width << endl;
+    cout << "Bmp::createHeader: height = " << height << endl;
+
+    data[0] = (unsigned char) 0x42;
+    data[1] = (unsigned char) 0x4d;
+    data[2] = (unsigned char) ((size << 24) >> 24);
+    data[3] = (unsigned char) ((size << 16) >> 24);
+    data[4] = (unsigned char) ((size << 8) >> 24);
+    data[5] = (unsigned char) ((size << 0) >> 24);
 
     data[10] = 14 + 40;
 
     data[14 + 0] = 40;
 
-    data[14 + 4] = (unsigned char)((width << 24) >> 24);
-    data[14 + 5] = (unsigned char)((width << 16) >> 24);
-    data[14 + 6] = (unsigned char)((width << 8) >> 24);
-    data[14 + 7] = (unsigned char)((width << 0) >> 24);
-    data[14 + 8] = (unsigned char)((height << 24) >> 24);
-    data[14 + 9] = (unsigned char)((height << 16) >> 24);
-    data[14 + 10] = (unsigned char)((height << 8) >> 24);
-    data[14 + 11] = (unsigned char)((height << 0) >> 24);
+    data[14 + 4] = (unsigned char) ((width << 24) >> 24);
+    data[14 + 5] = (unsigned char) ((width << 16) >> 24);
+    data[14 + 6] = (unsigned char) ((width << 8) >> 24);
+    data[14 + 7] = (unsigned char) ((width << 0) >> 24);
+    data[14 + 8] = (unsigned char) ((height << 24) >> 24);
+    data[14 + 9] = (unsigned char) ((height << 16) >> 24);
+    data[14 + 10] = (unsigned char) ((height << 8) >> 24);
+    data[14 + 11] = (unsigned char) ((height << 0) >> 24);
 
     data[14 + 12] = 1; // Number of planes
     data[14 + 14] = 24;
