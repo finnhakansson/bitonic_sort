@@ -5,6 +5,7 @@
 #include <fstream>
 #include <cmath>
 #include <time.h>
+#include <string.h>
 #include "Item.hh"
 #include "Bmp.hh"
 
