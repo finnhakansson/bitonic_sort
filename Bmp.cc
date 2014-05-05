@@ -1,6 +1,9 @@
 
 #include <string.h>
+#include <iostream>
 #include "Bmp.hh"
+
+using namespace std;
 
 
 #define BMP_HEADER_SIZE 54
@@ -14,6 +17,10 @@ Bmp::Bmp(int width, int height) {
     data = new unsigned char[size];
     index = 0;
     horizontal_pos = 0;
+    cout << "width: " << this->width << endl;
+    cout << "height: " << this->height << endl;
+    cout << "pad: " << pad << endl;
+    cout << "size: " << size << endl;
 }
 
 
