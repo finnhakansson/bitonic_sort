@@ -60,9 +60,6 @@ unsigned char* Bmp::getData(unsigned char* buf) {
 
 void Bmp::createHeader() {
     memset(data, 0, BMP_HEADER_SIZE);
-    cout << "Bmp::createHeader: size = " << size << endl;
-    cout << "Bmp::createHeader: width = " << width << endl;
-    cout << "Bmp::createHeader: height = " << height << endl;
 
     data[0] = (unsigned char) 0x42;
     data[1] = (unsigned char) 0x4d;
