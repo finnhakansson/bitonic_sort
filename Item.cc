@@ -13,15 +13,11 @@ Item::Item() {
     if (!randInit) {
         srand(10);
         randInit = true;
-cout << "Item::Item(): 1" << endl;
     }
-    number = rand() % 255;
-    cout << "Item::Item(): 2" << endl;
+    number = rand() % 256;
 }
 
-Item::~Item() {
-    cout << "Item::~Item(): 1" << endl;
-}
+Item::~Item() {}
 
 int Item::getNumber() const {
     return number;
