@@ -92,8 +92,8 @@ template<class ITEM> void BitonicSort<ITEM>::sort() {
                         cmp_swap(step + a + offset, step + b + offset);
                     }
                 }
-                recordPos();
             }
+            recordPos();
         }
     }
 }
@@ -123,7 +123,6 @@ int main(int argc, char** argv) {
     int max_num = 256;
     int arg = 0;
     char* output_file = NULL;
-
     int num = 1 << 5;
 
     while (arg < argc) {
@@ -145,6 +144,9 @@ int main(int argc, char** argv) {
     bs.output_array();
     bs.sort();
     bs.output_array();
+    for (int i = 0; i < 50; i++) {
+        bs.recordPos();
+    }
     cout << "Number of rows: " << bs.getNumRec() << endl;
     if (output_file) {
         cout << "Calling exportImage(\"" << output_file << "\")" << endl;
