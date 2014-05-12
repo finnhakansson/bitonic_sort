@@ -77,6 +77,7 @@ template<class ITEM> void BitonicSort<ITEM>::exportImage(const char* file) {
 }
 
 
+/*
 template<class ITEM> void BitonicSort<ITEM>::sort() {
     for (int chunk = 2; chunk <= num; chunk *= 2) {
         for (int offset = 0; offset < num; offset += chunk) {
@@ -94,6 +95,32 @@ template<class ITEM> void BitonicSort<ITEM>::sort() {
                 }
             }
             recordPos();
+        }
+    }
+}
+*/
+
+template<class ITEM> void BitonicSort<ITEM>::sort() {
+    for (int chunk_size = 2; chunk_size <= num; chunk_size *= 2) {
+        for (int a = 0; a < chunk_size / 2; a++) {
+            for (int offset = 0; offset < num; offset += chunk_size) {
+                int b = chunk_size - 1 - a;
+                cmp_swap(a + offset, b + offset);
+            }
+            recordPos();
+        }
+        for (int m = chunk_size / 2; m > 1; m /= 2) {
+            for (int step = 0; step < chunk_size; step += m) {
+                for (int a = 0; a < m / 2; a++) {
+                    for (int offset = 0; offset < num; offset += chunk_size) {
+                        int b = a + m / 2;
+                        cmp_swap(step + a + offset, step + b + offset);
+                    }
+                    //recordPos();
+                }
+                recordPos();
+            }
+            //recordPos();
         }
     }
 }
