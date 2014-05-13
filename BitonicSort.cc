@@ -6,6 +6,7 @@
 #include <cmath>
 #include <time.h>
 #include <string.h>
+#include <assert.h>
 #include "Item.hh"
 #include "Bmp.hh"
 
@@ -25,6 +26,7 @@ public:
     void sort();
     void output_array() const;
     void recordPos();
+    void addDivider(int val);
     int getNumRec() const { return num_rec; };
     void exportImage(const char* file);
 };
@@ -51,6 +53,17 @@ template<class ITEM> void BitonicSort<ITEM>::recordPos() {
     ITEM** rec = new ITEM*[num];
     for (int i = 0; i < num; i++) {
         rec[i] = array[i];
+    }
+    records.push_back(rec);
+    num_rec++;
+}
+
+
+template<class ITEM> void BitonicSort<ITEM>::addDivider(int val) {
+    ITEM** rec = new ITEM*[num];
+    ITEM* r = new ITEM(val);
+    for (int i = 0; i < num; i++) {
+        rec[i] = r;
     }
     records.push_back(rec);
     num_rec++;
@@ -106,20 +119,24 @@ template<class ITEM> void BitonicSort<ITEM>::sort() {
         for (int a = 0; a < chunk_size / 2; a++) {
             int b = chunk_size - 1 - a;
             for (int offset = 0; offset < num; offset += chunk_size) {
+assert(a < b);
                 cmp_swap(a + offset, b + offset);
             }
             recordPos();
         }
+addDivider(255);
         for (int m = chunk_size / 2; m > 1; m /= 2) {
             int step = m / 2;
             for (int a = 0; a < step; a++) {
                 int b = a + step;
                 for (int offset = 0; offset < num; offset += m) {
+assert(a < b);
                     cmp_swap(a + offset, b + offset);
                 }
                 recordPos();
             }
         }
+addDivider(0);
     }
 }
 
