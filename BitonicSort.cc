@@ -26,7 +26,7 @@ public:
     void sort();
     void output_array() const;
     void recordPos();
-    void addDivider(int val);
+    void addDivider(const int val);
     int getNumRec() const { return num_rec; };
     void exportImage(const char* file);
 };
@@ -41,11 +41,14 @@ template<class ITEM> void BitonicSort<ITEM>::output_array() const {
 
 
 template<class ITEM> void BitonicSort<ITEM>::cmp_swap(int a, int b) {
+    cout << "cmp(array[" << a << "], array[" << b << "])   (" << array[a]->getNumber() << ", " << array[b]->getNumber() << ")";
     if (*array[a] > *array[b]) {
         ITEM* tmp = array[a];
         array[a] = array[b];
         array[b] = tmp;
+        cout << " swap!";
     }
+    cout << endl;
 }
 
 
@@ -59,7 +62,7 @@ template<class ITEM> void BitonicSort<ITEM>::recordPos() {
 }
 
 
-template<class ITEM> void BitonicSort<ITEM>::addDivider(int val) {
+template<class ITEM> void BitonicSort<ITEM>::addDivider(const int val) {
     ITEM** rec = new ITEM*[num];
     ITEM* r = new ITEM(val);
     for (int i = 0; i < num; i++) {
@@ -119,24 +122,26 @@ template<class ITEM> void BitonicSort<ITEM>::sort() {
         for (int a = 0; a < chunk_size / 2; a++) {
             int b = chunk_size - 1 - a;
             for (int offset = 0; offset < num; offset += chunk_size) {
-assert(a < b);
+                assert(a < b);
                 cmp_swap(a + offset, b + offset);
             }
             recordPos();
         }
-addDivider(255);
+        addDivider(255);
+cout << "--------------" << endl;
         for (int m = chunk_size / 2; m > 1; m /= 2) {
             int step = m / 2;
             for (int a = 0; a < step; a++) {
                 int b = a + step;
                 for (int offset = 0; offset < num; offset += m) {
-assert(a < b);
+                    assert(a < b);
                     cmp_swap(a + offset, b + offset);
                 }
                 recordPos();
             }
         }
-addDivider(0);
+        addDivider(0);
+cout << "++++++++++++++" << endl;
     }
 }
 
@@ -183,10 +188,14 @@ int main(int argc, char** argv) {
     BitonicSort<Item> bs(num);
     cout << "Number of elements: " << num << endl;
 
+    for (int i = 0; i < 10; i++) {
+        bs.recordPos();
+    }
+    bs.addDivider(50); // TEST
     bs.output_array();
     bs.sort();
     bs.output_array();
-    for (int i = 0; i < 50; i++) {
+    for (int i = 0; i < 10; i++) {
         bs.recordPos();
     }
     cout << "Number of rows: " << bs.getNumRec() << endl;
