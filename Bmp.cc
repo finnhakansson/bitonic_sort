@@ -54,9 +54,7 @@ void Bmp::insert(const unsigned char r, const unsigned char g, const unsigned ch
 
 
 void Bmp::clear() {
-    for (int i = BMP_HEADER_SIZE; i < size; i++) {
-        data[i] = (unsigned char)0x00;
-    }
+    memset(&data[BMP_HEADER_SIZE], 0, size - BMP_HEADER_SIZE);
 }
 
 
