@@ -24,7 +24,8 @@ public:
     BitonicSort(const int n);
     ~BitonicSort();
     void sort();
-    void output_array() const;
+    void sort_orig();
+    void dump_array() const;
     void recordPos();
     void addDivider(const int val);
     int getNumRec() const { return num_rec; };
@@ -32,7 +33,7 @@ public:
 };
 
 
-template<class ITEM> void BitonicSort<ITEM>::output_array() const {
+template<class ITEM> void BitonicSort<ITEM>::dump_array() const {
     for (int i = 0; i < num; i++) {
         printf("%d%s", array[i]->getNumber(), (i < (num - 1)) ? " " : "");
     }
@@ -41,14 +42,14 @@ template<class ITEM> void BitonicSort<ITEM>::output_array() const {
 
 
 template<class ITEM> void BitonicSort<ITEM>::cmp_swap(int a, int b) {
-    cout << "cmp(array[" << a << "], array[" << b << "])   (" << array[a]->getNumber() << ", " << array[b]->getNumber() << ")";
+    //cout << "cmp(array[" << a << "], array[" << b << "])   (" << array[a]->getNumber() << ", " << array[b]->getNumber() << ")";
     if (*array[a] > *array[b]) {
         ITEM* tmp = array[a];
         array[a] = array[b];
         array[b] = tmp;
-        cout << " swap!";
+        //cout << " swap!";
     }
-    cout << endl;
+    //cout << endl;
 }
 
 
@@ -78,7 +79,8 @@ template<class ITEM> void BitonicSort<ITEM>::exportImage(const char* file) {
     int width = num_rec;
     Bmp bmp(width, height);
 
-    for (int row = 0; row < num; row++) {
+    // For BMP images, the data starts from the bottom left corner.
+    for (int row = height - 1; row >= 0; row--) {
         for (typename vector<ITEM**>::const_iterator items = records.begin(); items != records.end(); items++) {
             unsigned char intenisity = (unsigned char) (*items)[row]->getNumber();
             bmp.append(intenisity, intenisity, intenisity);
@@ -93,8 +95,8 @@ template<class ITEM> void BitonicSort<ITEM>::exportImage(const char* file) {
 }
 
 
-/*
-template<class ITEM> void BitonicSort<ITEM>::sort() {
+// The original algorithm.
+template<class ITEM> void BitonicSort<ITEM>::sort_orig() {
     for (int chunk = 2; chunk <= num; chunk *= 2) {
         for (int offset = 0; offset < num; offset += chunk) {
             for (int a = 0; a < chunk / 2; a++) {
@@ -114,9 +116,9 @@ template<class ITEM> void BitonicSort<ITEM>::sort() {
         }
     }
 }
-*/
 
 
+// An algorithm that appears more parallel.
 template<class ITEM> void BitonicSort<ITEM>::sort() {
     for (int chunk_size = 2; chunk_size <= num; chunk_size *= 2) {
         for (int a = 0; a < chunk_size / 2; a++) {
@@ -127,8 +129,7 @@ template<class ITEM> void BitonicSort<ITEM>::sort() {
             }
             recordPos();
         }
-        addDivider(255);
-cout << "--------------" << endl;
+        //addDivider(255);
         for (int m = chunk_size / 2; m > 1; m /= 2) {
             int step = m / 2;
             for (int a = 0; a < step; a++) {
@@ -140,8 +141,7 @@ cout << "--------------" << endl;
                 recordPos();
             }
         }
-        addDivider(0);
-cout << "++++++++++++++" << endl;
+        //addDivider(0);
     }
 }
 
@@ -153,7 +153,6 @@ template<class ITEM> BitonicSort<ITEM>::BitonicSort(int n) {
     for (int i = 0; i < num; i++) {
         array[i] = new ITEM();
     }
-    recordPos();
 }
 
 
@@ -191,10 +190,9 @@ int main(int argc, char** argv) {
     for (int i = 0; i < 10; i++) {
         bs.recordPos();
     }
-    bs.addDivider(50); // TEST
-    bs.output_array();
+    bs.dump_array();
     bs.sort();
-    bs.output_array();
+    bs.dump_array();
     for (int i = 0; i < 10; i++) {
         bs.recordPos();
     }
