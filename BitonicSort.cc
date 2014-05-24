@@ -35,9 +35,9 @@ public:
 
 template<class ITEM> void BitonicSort<ITEM>::dump_array() const {
     for (int i = 0; i < num; i++) {
-        printf("%d%s", array[i]->getNumber(), (i < (num - 1)) ? " " : "");
+        cout << array[i]->getNumber() << ((i < (num - 1)) ? " " : "");
     }
-    printf("\n");
+    cout << endl;
 }
 
 
@@ -185,22 +185,22 @@ int main(int argc, char** argv) {
     }
 
     BitonicSort<Item> bs(num);
-    cout << "Number of elements: " << num << endl;
 
     for (int i = 0; i < 10; i++) {
         bs.recordPos();
     }
-    bs.dump_array();
+
     bs.sort();
-    bs.dump_array();
+
     for (int i = 0; i < 10; i++) {
         bs.recordPos();
     }
-    cout << "Number of rows: " << bs.getNumRec() << endl;
+
     if (output_file) {
         cout << "Calling exportImage(\"" << output_file << "\")" << endl;
         bs.exportImage(output_file);
     }
+
     return 0;
 }
 
