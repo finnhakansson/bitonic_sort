@@ -1,6 +1,7 @@
 
 #include <string.h>
 #include <iostream>
+#include <assert.h>
 #include "Bmp.hh"
 
 using namespace std;
@@ -30,7 +31,7 @@ Bmp::~Bmp() {
 }
 
 
-void Bmp::append(unsigned char r, unsigned char g, unsigned char b) {
+void Bmp::append(const unsigned char r, const unsigned char g, const unsigned char b) {
     data[index++] = r;
     data[index++] = g;
     data[index++] = b;
@@ -40,6 +41,20 @@ void Bmp::append(unsigned char r, unsigned char g, unsigned char b) {
         }
         horizontal_pos = 0;
     }
+}
+
+
+void Bmp::insert(const unsigned char r, const unsigned char g, const unsigned char b, const unsigned int x, const unsigned int y) {
+    assert(x < width && y < height);
+    int i = BMP_HEADER_SIZE + y * (x * 3 + pad);
+    data[i++] = r;
+    data[i++] = g;
+    data[i] = b;
+}
+
+
+void Bmp::clear() {
+    memset(&data[BMP_HEADER_SIZE], 0, size - BMP_HEADER_SIZE);
 }
 
 

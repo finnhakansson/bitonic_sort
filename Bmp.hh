@@ -15,6 +15,8 @@ public:
     ~Bmp();
     int getDataSize() const;
     unsigned char* getData(unsigned char*);
-    void append(unsigned char r, unsigned char g, unsigned char b);
+    void append(const unsigned char r, const unsigned char g, const unsigned char b);
+    void insert(const unsigned char r, const unsigned char g, const unsigned char b, const unsigned int x, const unsigned int y);
+    void clear();
 };
 

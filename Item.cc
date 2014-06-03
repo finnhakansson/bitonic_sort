@@ -17,6 +17,10 @@ Item::Item() {
     number = rand() % 256;
 }
 
+Item::Item(int num) {
+    number = num;
+}
+
 Item::~Item() {}
 
 int Item::getNumber() const {
