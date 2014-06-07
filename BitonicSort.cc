@@ -8,6 +8,7 @@
 #include <string.h>
 #include <assert.h>
 #include "Item.hh"
+#include "RainbowItem.hh"
 #include "Bmp.hh"
 
 using namespace std;
