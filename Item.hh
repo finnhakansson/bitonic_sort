@@ -3,6 +3,7 @@
 class Item {
 private:
     static bool randInit;
+protected:
     int number;
 public:
     Item();

@@ -4,6 +4,7 @@ class RainbowItem: public Item {
 private:
     static unsigned char** colors;
     static int numberOfColors;
+    static void readRainbowColors();
 public:
     RainbowItem();
     RainbowItem(int num);
