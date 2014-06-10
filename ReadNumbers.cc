@@ -8,35 +8,51 @@ using namespace std;
 
 // g++ -std=c++11 -o x ReadNumbers.cc
 
-unsigned char** numbers;
+int size;
+unsigned int* numbers;
 
 
-void readNumbers() {
-    ifstream inputStream("rainbow+white.rgb", ifstream::in);
-    numbers = (unsigned char**) new unsigned int[237];
+class Rgb
+{
+public:
+    unsigned char rgb[3];
+    unsigned char& r;
+    unsigned char& g;
+    unsigned char& b;
+    Rgb() : r(rgb[0]), g(rgb[1]), b(rgb[2]) { rgb[0] = rgb[1] = rgb[2] = 0; }
+    int sum() { return r + g + b; }
+    unsigned char& operator[] (int i) { return rgb[i]; }
+};
+
+
+void readNumbers(const char* filename) {
+    ifstream inputStream(filename, ifstream::in);
     int index = 0;
-    int lineNumber = 0;
     string line;
-    while (getline(inputStream, line) && index < 237) {
-        lineNumber++;
-        index++;
-        if (lineNumber <= 3) {
-            index = 0;
-            continue;
-        }
+    getline(inputStream, line);
+    istringstream iss0(line);
+    string n;
+    iss0 >> n;
+    iss0 >> size;
+    numbers = new unsigned int[size];
+    getline(inputStream, line);
+    getline(inputStream, line);
+    while (getline(inputStream, line)) {
         istringstream iss(line);
-        iss >> numbers[index][0];
-        iss >> numbers[index][1];
-        iss >> numbers[index][2];
+        unsigned int r, g, b;
+        iss >> r;
+        iss >> g;
+        iss >> b;
+        numbers[index++] = (r << 24) | (g << 16) | (b << 8);
     }
     inputStream.close();
 }
 
 
 int main(int argc, char** argv) {
-    readNumbers();
-    for (int i = 0; i < 237; i++) {
-        cout << numbers[0] << " " << numbers[1] << " " << numbers[2] << endl;
+    readNumbers("rainbow+white.rgb");
+    for (int i = 0; i < size; i++) {
+        cout << " " << (numbers[i] >> 24) << " " << ((numbers[i] >> 16) & 0xff) << " " << ((numbers[i] >> 8) & 0xff) << endl;
     }
 }
 
