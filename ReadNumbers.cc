@@ -11,16 +11,10 @@ using namespace std;
 
 class Rgb
 {
-public:
+private:
     unsigned char rgb[3];
-    //unsigned char& r = rgb[0];
-    //unsigned char& g = rgb[1];
-    //unsigned char& b = rgb[2];
+public:
     Rgb() { rgb[0] = rgb[1] = rgb[2] = 0; }
-    //Rgb() : r(rgb[0]), g(rgb[1]), b(rgb[2]) { rgb[0] = rgb[1] = rgb[2] = 0; }
-    //Rgb() : r(rgb[0]), g(rgb[1]), b(rgb[2]) { }
-    //Rgb(int r0, int g0, int b0) : r(rgb[0]), g(rgb[1]), b(rgb[2]) { rgb[0] = (unsigned char)r0; rgb[1] = (unsigned char)g0; rgb[2] = (unsigned char)b0; }
-    unsigned char& operator[] (int i) { return rgb[i]; }
     int r() const { return (int) rgb[0]; }
     void r(int v) { rgb[0] = (unsigned char) v; }
     int g() const { return (int) rgb[1]; }
@@ -56,13 +50,10 @@ cout << size << endl;
         iss >> r;
         iss >> g;
         iss >> b;
-cout << r << ", " << g << ", " << b << endl;
         colors[index].r(r);
         colors[index].g(g);
         colors[index].b(b);
-        //iss >> colors[index].r;
-        //iss >> colors[index].g;
-        //iss >> colors[index].b;
+        index++;
     }
 
     inputStream.close();
