@@ -14,6 +14,19 @@ class Rgb
 private:
     unsigned char rgb[3];
 public:
+    unsigned char& r;
+    unsigned char& g;
+    unsigned char& b;
+    Rgb() : r(rgb[0]), g(rgb[1]), b(rgb[2]) { rgb[0] = rgb[1] = rgb[2] = 0; }
+};
+
+
+/*
+class Rgb
+{
+private:
+    unsigned char rgb[3];
+public:
     Rgb() { rgb[0] = rgb[1] = rgb[2] = 0; }
     int r() const { return (int) rgb[0]; }
     void r(int v) { rgb[0] = (unsigned char) v; }
@@ -22,6 +35,7 @@ public:
     int b() const { return (int) rgb[2]; }
     void b(int v) { rgb[2] = (unsigned char) v; }
 };
+*/
 
 
 int size;
@@ -37,7 +51,6 @@ void readNumbers(const char* filename) {
     string text;
     iss0 >> text;
     iss0 >> size;
-cout << size << endl;
     colors = new Rgb[size];
 
     // Eat up two lines.
@@ -50,9 +63,9 @@ cout << size << endl;
         iss >> r;
         iss >> g;
         iss >> b;
-        colors[index].r(r);
-        colors[index].g(g);
-        colors[index].b(b);
+        colors[index].r = r;
+        colors[index].g = g;
+        colors[index].b = b;
         index++;
     }
 
@@ -63,7 +76,7 @@ cout << size << endl;
 int main(int argc, char** argv) {
     readNumbers("rainbow+white.rgb");
     for (int i = 0; i < size; i++) {
-        cout << colors[i].r() << " " << colors[i].g() << " " << colors[i].b() << endl;
+        cout << (int) colors[i].r << " " << (int) colors[i].g << " " << (int) colors[i].b << endl;
     }
 }
 
