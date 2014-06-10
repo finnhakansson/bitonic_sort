@@ -8,12 +8,12 @@ using namespace std;
 
 // g++ -std=c++11 -o x ReadNumbers.cc
 
-unsigned int* numbers;
+unsigned char** numbers;
 
 
-void readNumbers(const char* filename) {
-    ifstream inputStream(filename, ifstream::in);
-    numbers = new unsigned int[237];
+void readNumbers() {
+    ifstream inputStream("rainbow+white.rgb", ifstream::in);
+    numbers = (unsigned char**) new unsigned int[237];
     int index = 0;
     int lineNumber = 0;
     string line;
@@ -25,19 +25,18 @@ void readNumbers(const char* filename) {
             continue;
         }
         istringstream iss(line);
-        iss >> ((unsigned char[4]) numbers[index])[0];
-        iss >> ((unsigned char[4]) numbers[index])[1];
-        iss >> ((unsigned char[4]) numbers[index])[2];
+        iss >> numbers[index][0];
+        iss >> numbers[index][1];
+        iss >> numbers[index][2];
     }
     inputStream.close();
 }
 
 
 int main(int argc, char** argv) {
-    readNumbers("rainbow+white.rgb");
+    readNumbers();
     for (int i = 0; i < 237; i++) {
-        //cout << numbers[0] << " " << numbers[1] << " " << numbers[2] << endl;
-        cout << ((unsigned char[4]) numbers[i])[0] << " " << ((unsigned char[4]) numbers[i])[1] << " " << ((unsigned char[4]) numbers[i])[2] << endl;
+        cout << numbers[0] << " " << numbers[1] << " " << numbers[2] << endl;
     }
 }
 
