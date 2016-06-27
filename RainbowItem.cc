@@ -10,7 +10,6 @@
 
 using namespace std;
 
-typedef struct { unsigned char* jump, unsigned char rgb[3]; } element;
 
 RainbowItem::RainbowItem() {
     number = rand() % 256;
@@ -84,41 +83,5 @@ unsigned long RainbowItem::hsv2rgb(float h, float s, float v) {
     //printf("rgb = %0.2f, %0.2f, %0.2f  rgb = %08lx\n", r, g, b, (unsigned long) (((unsigned long)(r * 255.9)) << 24 | ((unsigned long)(g * 255.9)) << 16 | ((unsigned long)(b * 255.9)) << 8));
     return (unsigned long) (((unsigned long)(r * 255.9)) << 24 | ((unsigned long)(g * 255.9)) << 16 | ((unsigned long)(b * 255.9)) << 8);
 }
-
-
-
-void RainbowItem::readRainbowColors() {
-    ifstream inputStream("rainbow+white.rgb", ifstream::in);
-    int index = 0;
-    string line;
-    getline(inputStream, line);
-    istringstream iss0(line);
-    string text;
-    iss0 >> text;
-    iss0 >> size;
-    colors = new element[size];
-    for (int i = 0; i < size; i++) {
-        colors[i].jump = &colors[i].rgb[0];
-    }
-
-    // Eat up two lines.
-    getline(inputStream, line);
-    getline(inputStream, line);
-
-    while (getline(inputStream, line)) {
-        istringstream iss(line);
-        int r, g, b;
-        iss >> r;
-        iss >> g;
-        iss >> b;
-        colors[index].r = r;
-        colors[index].g = g;
-        colors[index].b = b;
-        index++;
-    }
-
-    inputStream.close();
-}
-
 
 

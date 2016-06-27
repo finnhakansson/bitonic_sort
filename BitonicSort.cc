@@ -170,8 +170,8 @@ template<class ITEM> BitonicSort<ITEM>::~BitonicSort() {
 
 
 int main(int argc, char** argv) {
-    int min_num = 0;
-    int max_num = 256;
+    //int min_num = 0;
+    //int max_num = 256;
     int arg = 0;
     char* output_file = NULL;
     int num = 1 << 5;
@@ -201,13 +201,13 @@ int main(int argc, char** argv) {
     BitonicSort<RainbowItem> bs(num);
     //bs.dump_array();
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 120; i++) {
         bs.recordPos();
     }
 
     bs.sort();
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 120; i++) {
         bs.recordPos();
     }
 
