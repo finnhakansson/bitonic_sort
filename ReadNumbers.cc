@@ -15,6 +15,7 @@ private:
     unsigned char rgb[3];
 public:
     Rgb() { rgb[0] = rgb[1] = rgb[2] = 0; }
+    Rgb(unsigned char r, unsigned char g, unsigned char b) { rgb[0] = r; rgb[1] = g; rgb[2] = b; }
     int r() const { return (int) rgb[0]; }
     void r(int v) { rgb[0] = (unsigned char) v; }
     int g() const { return (int) rgb[1]; }
