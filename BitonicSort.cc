@@ -6,6 +6,7 @@
 #include <cmath>
 #include <time.h>
 #include <string.h>
+#include <ctype.h>
 #include <assert.h>
 #include "Item.hh"
 #include "RainbowItem.hh"
@@ -36,9 +37,11 @@ public:
 
 template<class ITEM> void BitonicSort<ITEM>::dump_array() const {
     for (int i = 0; i < num; i++) {
-        cout << array[i]->getNumber() << ((i < (num - 1)) ? " " : "");
+        //cout << array[i]->getNumber() << ((i < (num - 1)) ? " " : "");
+        array[i]->dump();
     }
-    cout << endl;
+exit(0);
+    //cout << endl;
 }
 
 
@@ -83,8 +86,9 @@ template<class ITEM> void BitonicSort<ITEM>::exportImage(const char* file) {
     // For BMP images, the data starts from the bottom left corner.
     for (int row = height - 1; row >= 0; row--) {
         for (typename vector<ITEM**>::const_iterator items = records.begin(); items != records.end(); items++) {
-            unsigned char intenisity = (unsigned char) (*items)[row]->getNumber();
-            bmp.append(intenisity, intenisity, intenisity);
+            //unsigned char intenisity = (unsigned char) (*items)[row]->getNumber();
+            //bmp.append(intenisity, intenisity, intenisity);
+            bmp.append((*items)[row]->b(), (*items)[row]->g(), (*items)[row]->r());
         }
     }
 
@@ -174,7 +178,16 @@ int main(int argc, char** argv) {
 
     while (arg < argc) {
         if (strcmp(argv[arg], "-n") == 0) {
-            num = atoi(argv[++arg]);
+            char *n = argv[++arg];
+            int i = 0;
+            while (char c = n[i++]) {
+                if (!isdigit(c)) {
+                    printf("Argument is not a number.\n\n");
+                    printf("Usage:\n\tserial_bitonic_sort [-n NUMBER_OF_ELEMENTS]\n\n");
+                    exit(0);
+                }
+            }
+            num = atoi(n);
             // TODO: Add support for arbitrary positive integers.
         } else if (strcmp(argv[arg], "-o") == 0) {
             output_file = argv[++arg];
@@ -185,7 +198,8 @@ int main(int argc, char** argv) {
         arg++;
     }
 
-    BitonicSort<Item> bs(num);
+    BitonicSort<RainbowItem> bs(num);
+    //bs.dump_array();
 
     for (int i = 0; i < 10; i++) {
         bs.recordPos();
