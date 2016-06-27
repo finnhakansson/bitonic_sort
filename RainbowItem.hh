@@ -2,9 +2,8 @@
 
 class RainbowItem: public Item {
 private:
-    static unsigned char** colors;
-    static int numberOfColors;
-    static void readRainbowColors();
+    unsigned long rgb;
+    unsigned long hsv2rgb(float h, float s, float v);
 public:
     RainbowItem();
     RainbowItem(int num);
@@ -12,6 +11,7 @@ public:
     unsigned char r() const;
     unsigned char g() const;
     unsigned char b() const;
+    void dump() const;
 };
 
 
