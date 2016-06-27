@@ -13,13 +13,13 @@ using namespace std;
 
 RainbowItem::RainbowItem() {
     number = rand() % 256;
-    rgb = hsv2rgb(number * 360.0 / 256.0, 1.0, 1.0);
+    rgb = hsv2rgb(number * 300.0 / 256.0, 1.0, 1.0);
 }
 
 
 RainbowItem::RainbowItem(int num) {
     number = num;
-    rgb = hsv2rgb(number * 360.0 / 256.0, 1.0, 1.0);
+    rgb = hsv2rgb(number * 300.0 / 256.0, 1.0, 1.0);
 }
 
 
